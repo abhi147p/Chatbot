@@ -35,7 +35,7 @@ def home(request):
     # Load chat history
     chat_history = ChatMessage.objects.filter(user=request.user).order_by('created_at')
     
-    return render(request, 'chatbot_app/home.html', {'form': form, 'chat_history': chat_history})
+    return render(request, 'home.html', {'form': form, 'chat_history': chat_history})
 
 def process_user_input(input_text):
     # This is a placeholder function to process the user input
@@ -80,7 +80,7 @@ def signup(request):
             return redirect('otp_verification', user.id)
     else:
         form = SignUpForm()
-    return render(request, 'chatbot_app/signup.html', {'form': form})
+    return render(request, 'signup.html', {'form': form})
 
 # def otp_verification(request, user_id):
 #     user = User.objects.get(id=user_id)
@@ -143,10 +143,10 @@ def otp_verification(request, user_id):
     else:
         # Initial load of the page, provide an empty form
         form = OTPForm()
-        return render(request, 'chatbot_app/otp_verification.html', {'form': form, 'user_id': user_id})
+        return render(request, 'otp_verification.html', {'form': form, 'user_id': user_id})
 
     # Re-render the page with the updated context
-    return render(request, 'chatbot_app/otp_verification.html', {'title': 'OTP Confirmation'})
+    return render(request, 'otp_verification.html', {'title': 'OTP Confirmation'})
 
 def login_view(request):
     if request.method == 'POST':
@@ -157,9 +157,9 @@ def login_view(request):
             login(request, user)
             return redirect('home')  # Redirect to a success page
         else:
-            return render(request, 'chatbot_app/login.html', {'error': 'Invalid username or password'})
+            return render(request, 'login.html', {'error': 'Invalid username or password'})
     else:
-        return render(request, 'chatbot_app/login.html')
+        return render(request, 'login.html')
 
 @require_http_methods(["DELETE"])
 def delete_history(request, history_id):

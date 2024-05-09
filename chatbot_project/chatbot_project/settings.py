@@ -55,7 +55,9 @@ ROOT_URLCONF = "chatbot_project.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        'DIRS': [
+            BASE_DIR / 'templates',
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -128,3 +130,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+EMAIL_HOST_USER = 'faulfs202402@gmail.com'  # Your Gmail address
+EMAIL_HOST_PASSWORD = 'qzze pmes jtgg qzup'  # Your Gmail App Password

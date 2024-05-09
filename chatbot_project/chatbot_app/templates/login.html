@@ -1,5 +1,5 @@
-{% extends "chatbot_app/base.html" %}
-
+{% extends "base.html" %}
+{% load static %}
 {% block content %}
 <h2>Login</h2>
 <form method="post">
@@ -13,4 +13,7 @@
     <p><strong>{{ error }}</strong></p>
     {% endif %}
 </form>
+<div class="text-center mb-3">
+    Don't have an account? <a href="{% url 'signup' %}">Sign up</a>
+</div>
 {% endblock %}

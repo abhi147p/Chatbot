@@ -7,7 +7,7 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('firstname', 'lastname', 'username', 'email', 'password1', 'password2')
+        fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
 
 class OTPForm(forms.Form):
     otp = forms.IntegerField(help_text='Enter OTP')

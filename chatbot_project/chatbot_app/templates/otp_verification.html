@@ -1,5 +1,5 @@
-{% extends "chatbot_app/base.html" %}
-
+{% extends "base.html" %}
+{% load static %}
 {% block content %}
 <h2>OTP Verification</h2>
 <form method="post" action="{% url 'otp_verification' user_id=user_id %}">

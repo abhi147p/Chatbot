@@ -1,0 +1,16 @@
+{% extends "chatbot_app/base.html" %}
+
+{% block content %}
+<h2>Login</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" required><br>
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required><br>
+    <button type="submit">Login</button>
+    {% if error %}
+    <p><strong>{{ error }}</strong></p>
+    {% endif %}
+</form>
+{% endblock %}

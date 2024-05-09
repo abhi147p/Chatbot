@@ -1,0 +1,13 @@
+{% extends "chatbot_app/base.html" %}
+
+{% block content %}
+<h2>OTP Verification</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Verify OTP</button>
+    {% if error %}
+    <p><strong>{{ error }}</strong></p>
+    {% endif %}
+</form>
+{% endblock %}

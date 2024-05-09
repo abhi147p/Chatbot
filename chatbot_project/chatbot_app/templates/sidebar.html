@@ -1,0 +1,33 @@
+<div class="sidebar">
+    <h3>History</h3>
+    <ul id="historyList">
+        {% for key, items in history.items %}
+        <li>
+            <strong>{{ key|capfirst }}</strong>
+            <ul>
+                {% for item in items %}
+                <li>{{ item.timestamp }}: {{ item.description }}
+                    <button onclick="deleteHistory('{{ item.id }}')">Delete</button>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<script>
+function deleteHistory(historyId) {
+    fetch(`/delete-history/${historyId}/`, { method: 'DELETE' })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Remove the history element from the list
+                const li = document.querySelector(`button[onclick="deleteHistory('${historyId}')"]`).parentElement;
+                li.remove();
+            } else {
+                alert("Failed to delete history.");
+            }
+        });
+}
+</script>

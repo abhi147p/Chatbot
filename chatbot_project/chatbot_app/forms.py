@@ -11,3 +11,6 @@ class SignUpForm(UserCreationForm):
 
 class OTPForm(forms.Form):
     otp = forms.IntegerField(help_text='Enter OTP')
+    
+class MessageForm(forms.Form):
+    message = forms.CharField(label='Your message', max_length=1000)

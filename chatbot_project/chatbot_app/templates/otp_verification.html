@@ -2,12 +2,14 @@
 
 {% block content %}
 <h2>OTP Verification</h2>
-<form method="post">
+<form method="post" action="{% url 'otp_verification' user_id=user_id %}">
     {% csrf_token %}
-    {{ form.as_p }}
+    <label for="otp">Enter OTP:</label>
+    <input type="text" id="otp" name="otp" required>
     <button type="submit">Verify OTP</button>
-    {% if error %}
-    <p><strong>{{ error }}</strong></p>
-    {% endif %}
 </form>
+
+{% if user_id %}
+<p>Didn't receive the code? <a href="?resend=true&user_id={{ user_id }}">Send again</a></p>
+{% endif %}
 {% endblock %}

@@ -1,0 +1,24 @@
+{% extends "chatbot_app/base.html" %}
+
+{% block content %}
+<div class="main-content">
+    <section class="chatbot-interface">
+        <div class="chat-window">
+            <ul id="chatbox">
+                {% for message in chat_history %}
+                    <li class="{{ 'user-message' if message.is_user else 'chatbot-message' }}">
+                        {{ message.text }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="user-input">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.message }}
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </section>
+</div>
+{% endblock %}

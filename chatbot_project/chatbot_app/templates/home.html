@@ -2,11 +2,15 @@
 {% load static %}
 {% block content %}
 <div class="main-content">
+    <div class="layout">
+        {% include 'sidebar.html' %}
+    </div>
     <section class="chatbot-interface">
         <div class="chat-window">
             <ul id="chatbox">
                 {% for message in chat_history %}
-                    <li class="{{ 'user-message' if message.is_user else 'chatbot-message' }}">
+                    <!-- Using Django template tags to conditionally set the class -->
+                    <li class="{% if message.is_user %}user-message{% else %}chatbot-message{% endif %}">
                         {{ message.text }}
                     </li>
                 {% endfor %}

@@ -40,9 +40,12 @@ def home(request):
 def process_user_input(input_text):
     # This is a placeholder function to process the user input
     # Replace this with actual logic to generate a response
-    search_results = wikipedia.search(input_text)
-    page = wikipedia.page(search_results[0])
-    summary = wikipedia.summary(search_results[0], sentences=2)
+    try:
+        search_results = wikipedia.search(input_text)
+        page = wikipedia.page(search_results[0])
+        summary = wikipedia.summary(search_results[0], sentences=2)
+    except Exception as ex:
+        summary = "Sorry No Response can be found for the following query."
     # print("Summary:", summary)
     return summary
 
@@ -65,7 +68,7 @@ def get_history(user):
 
 def logoutPage(request):
     logout(request)
-    return redirect('home')
+    return redirect('login')
 
 def signup(request):
     if request.method == 'POST':

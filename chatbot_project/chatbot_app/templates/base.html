@@ -10,6 +10,14 @@
 <body>
     <header>
         <h1>Chatbot Application</h1>
+        {% if user.is_authenticated %}
+        <div class="user-info">
+            <a href="#" onclick="toggleDropdown()">{{ user.username }}</a>
+            <div id="user-dropdown">
+                <a href="{% url 'logout' %}">Logout</a>
+            </div>
+        </div>
+        {% endif %}
     </header>
 
     <div class="layout">
@@ -24,5 +32,11 @@
     <footer>
         <p>&copy; 2024 Chatbot App</p>
     </footer>
+    <script>
+        function toggleDropdown() {
+            var dropdown = document.getElementById("user-dropdown");
+            dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
 </body>
 </html>

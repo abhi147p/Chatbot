@@ -129,7 +129,7 @@ header, footer {
     align-self: flex-end;
 }
 
-.user-input {
+/* .user-input {
     display: flex;
 }
 
@@ -151,7 +151,42 @@ header, footer {
 
 .user-input button:hover {
     background-color: #379683;
+} */
+
+/* Specific to the chatbot interface */
+.user-input {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
 }
+
+/* Make the text box wider */
+.user-input input[type="text"] {
+    flex-grow: 1; /* Takes up available space */
+    width: 80%; /* Initial width fallback */
+    padding: 12px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #ffffff; /* Keeps the original input color */
+    color: #121212; /* Consistent with previous design */
+}
+
+/* Maintain button styling */
+.user-input button {
+    padding: 12px 20px;
+    background-color: #5CDB95;
+    color: #121212;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.user-input button:hover {
+    background-color: #379683;
+}
+
 
 form {
     margin: 20px 0;

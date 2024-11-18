@@ -11,10 +11,8 @@ from django.core.mail import send_mail, EmailMessage
 from django.template.loader import render_to_string
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from .forms import MessageForm
 from .models import ChatMessage
-import wikipedia
 
 def custom_404_page(request, exception):
     return render(request, 'chatbot_app/404.html', status=404)
@@ -40,12 +38,36 @@ def home(request):
     
     return render(request, 'home.html', {'form': form, 'chat_history': chat_history})
 
+from django.conf import settings
+
+from openai import OpenAI
+
+client = OpenAI(
+  api_key = settings.OPEN_AI_KEY
+)
+
+def get_recommendations(user_input):
+    # GPT-4 API call to generate recommendation
+    completion = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant for answering all questions, mainly questions about cars."},
+            {
+                "role": "user",
+                "content": user_input
+            }
+        ]
+    )
+    response = completion.choices[0].message.content
+    return response
+
 def process_user_input(input_text):
     # This is a placeholder function to process the user input
     # Replace this with actual logic to generate a response
     try:
-        summary = ""
+        summary = get_recommendations(input_text)
     except Exception as ex:
+        print(ex)
         summary = "Sorry No Response can be found for the following query."
     # print("Summary:", summary)
     return summary

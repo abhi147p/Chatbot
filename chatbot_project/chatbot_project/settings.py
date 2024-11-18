@@ -48,6 +48,7 @@ DB_SERVER = 'carrs.database.windows.net'
 DB_USER_NAME = 'carrs'
 DB_PASSWORD = 'Abhishek@12345'
 
+OPEN_AI_KEY = "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"
 
 # Application definition
 

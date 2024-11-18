@@ -2,24 +2,29 @@
 {% load static %}
 {% block content %}
 <div class="main-content">
-    <div class="layout">
-        {% include 'sidebar.html' %}
-    </div>
+    <!-- Header Section -->
+    <header class="chatbot-header">
+        <h1>Chatbot Application</h1>
+    </header>
+
+    <!-- Chatbot Interface Section -->
     <section class="chatbot-interface">
+        <!-- Chat Window -->
         <div class="chat-window">
             <ul id="chatbox">
                 {% for message in chat_history %}
-                    <!-- Using Django template tags to conditionally set the class -->
                     <li class="{% if message.is_user %}user-message{% else %}chatbot-message{% endif %}">
                         {{ message.text }}
                     </li>
                 {% endfor %}
             </ul>
         </div>
+
+        <!-- User Input Section -->
         <div class="user-input">
             <form method="post">
                 {% csrf_token %}
-                {{ form.message }}
+                <input id="userMessage" name="message" type="text" placeholder="Type your message..." autocomplete="off" required>
                 <button type="submit">Send</button>
             </form>
         </div>

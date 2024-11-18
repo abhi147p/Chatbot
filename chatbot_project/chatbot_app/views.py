@@ -16,6 +16,9 @@ from .forms import MessageForm
 from .models import ChatMessage
 import wikipedia
 
+def custom_404_page(request, exception):
+    return render(request, 'chatbot_app/404.html', status=404)
+
 def home(request):
     if request.method == 'POST':
         form = MessageForm(request.POST)
@@ -41,9 +44,7 @@ def process_user_input(input_text):
     # This is a placeholder function to process the user input
     # Replace this with actual logic to generate a response
     try:
-        search_results = wikipedia.search(input_text)
-        page = wikipedia.page(search_results[0])
-        summary = wikipedia.summary(search_results[0], sentences=2)
+        summary = ""
     except Exception as ex:
         summary = "Sorry No Response can be found for the following query."
     # print("Summary:", summary)
@@ -72,6 +73,9 @@ def logoutPage(request):
 
 def signup(request):
     if request.method == 'POST':
+        email = request.POST.get('email')
+        if email.split("@")[1].strip() != 'gmail.com':
+            messages.error(request, 'Only valid Email Ids are allowed')
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)

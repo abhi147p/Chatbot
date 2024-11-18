@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -19,13 +19,34 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
+AZURE_ACCOUNT_NAME = 'carstorages'
+AZURE_ACCOUNT_KEY = 'cetDINtC9dYIg1jj42HiaTLLadDcusFQnvB2NDrcAxHUEBzoOYOtuitfmwoXzzu6pnGCz+Ri3Ns++ASt5MZA8Q=='
+AZURE_CONTAINER = 'static'  # The container where files will be stored
+
+DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+
+AZURE_STORAGE_CONNECTION_STRING = f"DefaultEndpointsProtocol=https;AccountName={AZURE_ACCOUNT_NAME};AccountKey={AZURE_ACCOUNT_KEY};EndpointSuffix=core.windows.net"
+AZURE_LOCATION = 'uaenorth'  # e.g., 'westus'
+AZURE_SSL = True
+STATICFILES_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+STATIC_ROOT = '/static/'
+STATIC_URL = f"https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_CONTAINER}/"
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-lb@zq)p(ounyri)#nmz0z)9gqmo%1bhqj^1%)ai3jwr^$7w=0z"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+
+# DB user details
+
+DB_NAME='carrs'
+DB_SERVER = 'carrs.database.windows.net'
+DB_USER_NAME = 'carrs'
+DB_PASSWORD = 'Abhishek@12345'
 
 
 # Application definition
@@ -37,6 +58,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "storages",
     "chatbot_app",
 ]
 
@@ -72,16 +94,33 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "chatbot_project.wsgi.application"
 
+ALLOWED_HOSTS = ["ulfs.azurewebsites.net", "*"]
+CSRF_TRUSTED_ORIGINS = ['https://*.azurewebsites.net','https://*.127.0.0.1']
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    'default': {
+        'ENGINE': 'mssql',
+        'NAME': DB_NAME,
+        'USER': DB_USER_NAME,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_SERVER,
+        'PORT': '',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
+    },
 }
+
 
 
 # Password validation
@@ -121,7 +160,7 @@ USE_TZ = True
 # STATIC_URL = "static/"
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
@@ -131,9 +170,13 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'faulfs202402@gmail.com'  # Your Gmail address
-EMAIL_HOST_PASSWORD = 'qzze pmes jtgg qzup'  # Your Gmail App Password
+EMAIL_HOST_USER = 'carrs2024ist@gmail.com'  # Your Gmail address
+EMAIL_HOST_PASSWORD = 'qpxh vdeg pusk ttgt'  # Your Gmail App Password
